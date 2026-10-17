@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "crossOriginStorageHashes": [
+        "sha256-01//D3ZwWsfI6dsYbP5S1sQmisHSMvor5OjbXpZ/yt0=",
+        "sha384-WgFFnswl8NnogiwWkApVoAWEF6vl/rKrK8DMtjvkMjZPsTzppXV9c1ddCRki5jAJ",
+        "sha512-VHvuSHIQhot+zP/M5bdoQtgGfXWmF4GGjKH+JYVzj9Hvu5p44pvRLTZL82kAyvGHNl3j/F4OiR9LOCKZep9jEQ=="
+      ]
+    }
+  }
+]

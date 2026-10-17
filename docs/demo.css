@@ -1,0 +1,147 @@
+/* SPDX-FileCopyrightText: 2026 Google LLC */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+:root {
+  color-scheme: light dark;
+  --bg: #fdfcfa;
+  --fg: #1d1d1f;
+  --muted: #5b5b63;
+  --card: #ffffff;
+  --border: #e3e1dc;
+  --code: #f3f1ec;
+  --accent: #1a56db;
+  --ran: #b42318;
+  --blocked: #067647;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141416;
+    --fg: #ececf1;
+    --muted: #a4a4ae;
+    --card: #1c1c1f;
+    --border: #2e2e33;
+    --code: #232327;
+    --accent: #7aa7ff;
+    --ran: #ff8a80;
+    --blocked: #6ee7a6;
+  }
+}
+
+body {
+  margin: 0 auto;
+  max-width: 46rem;
+  padding: 2rem 1rem 4rem;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+a {
+  color: var(--accent);
+}
+
+h1 {
+  font-size: 1.75rem;
+  line-height: 1.2;
+  margin-block: 0 0.75rem;
+}
+
+h2 {
+  font-size: 1.1rem;
+  margin-block: 0 0.25rem;
+}
+
+.note {
+  color: var(--muted);
+}
+
+.error {
+  color: var(--ran);
+}
+
+.steps {
+  display: grid;
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.steps > li {
+  counter-increment: step;
+  position: relative;
+  padding: 1rem 1rem 1rem 3.25rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.steps > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--code);
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.steps p {
+  margin-block: 0 0.75rem;
+}
+
+pre {
+  margin: 0 0 0.75rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--code);
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.8rem;
+}
+
+code {
+  font-size: 0.9em;
+}
+
+button {
+  font: inherit;
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--code);
+  color: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+output {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  min-height: 1.5em;
+}
+
+output.ran {
+  color: var(--ran);
+}
+
+output.blocked {
+  color: var(--blocked);
+}
+
+footer {
+  margin-top: 2rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}

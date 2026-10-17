@@ -1,0 +1,73 @@
+/* SPDX-FileCopyrightText: 2026 Google LLC */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, sans-serif;
+  font-size: 13px;
+}
+
+body {
+  width: 26rem;
+  margin: 0;
+  padding: 0.75rem 1rem 1rem;
+}
+
+h1 {
+  font-size: 1.15rem;
+  margin: 0 0 0.5rem;
+}
+
+h2 {
+  font-size: 0.95rem;
+  margin: 0.75rem 0 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+fieldset {
+  border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  border-radius: 8px;
+  display: grid;
+  gap: 0.25rem;
+}
+
+#log {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 16rem;
+  overflow-y: auto;
+}
+
+#log li {
+  padding: 0.3rem 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  overflow-wrap: anywhere;
+}
+
+.kind {
+  font-weight: 600;
+}
+
+.kind.blocked {
+  color: #067647;
+}
+
+.kind.cache {
+  color: #b54708;
+}
+
+.kind.error {
+  opacity: 0.75;
+}
+
+@media (prefers-color-scheme: dark) {
+  .kind.blocked {
+    color: #6ee7a6;
+  }
+  .kind.cache {
+    color: #fdb022;
+  }
+}

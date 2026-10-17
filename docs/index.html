@@ -1,0 +1,108 @@
+<!doctype html>
+<!-- SPDX-FileCopyrightText: 2026 Google LLC -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ad blocking and Cross-Origin Storage</title>
+    <meta
+      name="description"
+      content="How a content blocker catches an ad script served from Cross-Origin Storage, by its URL and by its hash."
+    />
+    <link rel="stylesheet" href="demo.css" />
+    <script type="module" src="demo.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Ad blocking and Cross-Origin Storage</h1>
+      <p>
+        A publisher page loads <a href="https://prebid.org/">Prebid.js</a>, a
+        header-bidding library that content blockers block, in four ways. The
+        companion extension blocks it by its URL and by its
+        <a href="https://wicg.github.io/cross-origin-storage/"
+          >Cross-Origin Storage</a
+        >
+        hash.
+      </p>
+      <p id="support" class="note" role="status"></p>
+    </header>
+
+    <main>
+      <ol class="steps">
+        <li>
+          <h2>Warm Cross-Origin Storage</h2>
+          <p>
+            Load Prebid.js from jsDelivr with <code>integrity</code> and
+            <code>crossoriginstorage</code>. On a miss, the browser fetches it
+            and stores the verified bytes. Run this with the extension's rules
+            off, as a page would on a browser without a content blocker.
+          </p>
+          <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/prebid.js@11.40.0/…/prebid.js"
+        integrity="sha384-…" crossorigin="anonymous" crossoriginstorage&gt;</code></pre>
+          <button type="button" data-step="warm">Load from jsDelivr</button>
+          <output data-for="warm"></output>
+        </li>
+        <li>
+          <h2>Load it again: a Cross-Origin Storage hit</h2>
+          <p>
+            The same tag again. The bytes now come from Cross-Origin Storage,
+            with no network request. The extension's URL rule still applies,
+            because the hit reaches it as the request it serves.
+          </p>
+          <button type="button" data-step="hit">
+            Load from jsDelivr again
+          </button>
+          <output data-for="hit"></output>
+        </li>
+        <li>
+          <h2>Load it under a renamed first-party URL</h2>
+          <p>
+            A publisher evades filter lists by serving the library from an
+            innocuous path on its own site. Here,
+            <code>vendor/a7f3c9.js</code> does not even exist: only Cross-Origin
+            Storage can answer, by the hash in <code>integrity</code>. No URL
+            rule matches, so only the hash rule catches it.
+          </p>
+          <pre><code>&lt;script src="vendor/a7f3c9.js" integrity="sha384-…"
+        crossoriginstorage&gt;</code></pre>
+          <button type="button" data-step="renamed">
+            Load from a renamed URL
+          </button>
+          <output data-for="renamed"></output>
+        </li>
+        <li>
+          <h2>Load it with no URL at all</h2>
+          <p>
+            Script reads the bytes with
+            <code>navigator.crossOriginStorage.getFileHandle()</code> and runs
+            them from a <code>blob:</code> URL. There is no request to match, so
+            only the hash rule catches it.
+          </p>
+          <pre><code>const handle = await navigator.crossOriginStorage.getFileHandle(
+    {algorithm: 'SHA-384', value: '…'});
+script.src = URL.createObjectURL(await handle.getFile());</code></pre>
+          <button type="button" data-step="handle">
+            Load with getFileHandle()
+          </button>
+          <output data-for="handle"></output>
+        </li>
+      </ol>
+    </main>
+
+    <footer>
+      <p>
+        Needs a Chromium build with Cross-Origin Storage, started with
+        <code>--enable-features=CrossOriginStorage</code>, and the
+        <a
+          href="https://github.com/tomayac/cos-ad-blocking-demo/tree/main/extension"
+          >COS Ad Blocker</a
+        >
+        extension loaded unpacked.
+        <a href="https://github.com/tomayac/cos-ad-blocking-demo"
+          >Source and instructions</a
+        >.
+      </p>
+    </footer>
+  </body>
+</html>

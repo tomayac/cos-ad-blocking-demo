@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "COS Ad Blocker (demo)",
+  "description": "Blocks Prebid.js by its URL and by its Cross-Origin Storage hash, and logs what it caught.",
+  "version": "1.0",
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
+    "webRequest",
+    "storage",
+    "crossOriginStorage"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "COS Ad Blocker",
+    "default_popup": "popup.html"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "block_by_url",
+        "enabled": true,
+        "path": "rules/url.json"
+      },
+      {
+        "id": "block_by_hash",
+        "enabled": true,
+        "path": "rules/hash.json"
+      }
+    ]
+  }
+}
