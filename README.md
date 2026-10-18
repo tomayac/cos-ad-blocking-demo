@@ -86,10 +86,9 @@ Each attempt adds a `?visit=` query string, which stands in for a later page
 visit. Without it, the browser would reuse the script it already holds in
 memory for the page, and no request, so no COS lookup, would happen.
 
-The 2026-10-17 release blocks as described. Logging matches of the hash rule
-and showing COS hits to `webRequest` come with
-[CL 8606266](https://chromium-review.googlesource.com/c/chromium/src/+/8606266),
-which is not in that release.
+The [2026-10-18 release](https://github.com/tomayac/Chromium/releases/tag/chromium-cos-linux-x64-2026-10-18)
+and later have everything the demo uses. The 2026-10-17 release blocks as
+described, but its log shows neither matches of the hash rule nor COS hits.
 
 ## Chromium changes
 
