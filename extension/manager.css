@@ -1,0 +1,114 @@
+/* SPDX-FileCopyrightText: 2026 Google LLC */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, sans-serif;
+  line-height: 1.45;
+  --border: color-mix(in srgb, currentColor 18%, transparent);
+  --muted: color-mix(in srgb, currentColor 65%, transparent);
+}
+
+body {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+h1 {
+  margin: 0 0 0.25rem;
+  font-size: 1.6rem;
+}
+
+h2 {
+  margin: 2rem 0 0.25rem;
+  font-size: 1.2rem;
+}
+
+h3 {
+  margin: 1rem 0 0.25rem;
+  font-size: 1rem;
+}
+
+.note {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+label {
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.85rem;
+}
+
+th,
+td {
+  padding: 0.35rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+  white-space: pre-line;
+}
+
+td:last-child {
+  white-space: nowrap;
+}
+
+button {
+  font: inherit;
+  margin-right: 0.25rem;
+}
+
+#dynamic-rules {
+  overflow-wrap: anywhere;
+}
+
+#log {
+  padding-left: 1.25rem;
+  overflow-wrap: anywhere;
+  font-size: 0.85rem;
+}
+
+.kind {
+  font-weight: 600;
+}
+
+.kind.blocked {
+  color: #067647;
+}
+
+.kind.cache {
+  color: #b54708;
+}
+
+.kind.error {
+  opacity: 0.75;
+}
+
+@media (prefers-color-scheme: dark) {
+  .kind.blocked {
+    color: #6ee7a6;
+  }
+  .kind.cache {
+    color: #fdb022;
+  }
+}

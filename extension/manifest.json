@@ -1,14 +1,17 @@
 {
   "manifest_version": 3,
   "name": "COS Ad Blocker (demo)",
-  "description": "Blocks Prebid.js by its URL and by its Cross-Origin Storage hash, and logs what it caught.",
+  "description": "Shows what an extension can do with Cross-Origin Storage: list, delete, block by URL and by hash, clear site data, and use the DevTools protocol.",
   "version": "1.0",
   "permissions": [
     "declarativeNetRequest",
     "declarativeNetRequestFeedback",
     "webRequest",
     "storage",
-    "crossOriginStorage"
+    "crossOriginStorage",
+    "browsingData",
+    "debugger",
+    "tabs"
   ],
   "host_permissions": ["<all_urls>"],
   "background": {
@@ -31,5 +34,9 @@
         "path": "rules/hash.json"
       }
     ]
+  },
+  "options_ui": {
+    "page": "manager.html",
+    "open_in_tab": true
   }
 }

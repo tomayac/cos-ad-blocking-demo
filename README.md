@@ -90,12 +90,30 @@ The [2026-10-18 release](https://github.com/tomayac/Chromium/releases/tag/chromi
 and later have everything the demo uses. The 2026-10-17 release blocks as
 described, but its log shows neither matches of the hash rule nor COS hits.
 
+## Managing Cross-Origin Storage
+
+The extension's manager page (the popup's button, or the extension's options)
+shows everything else an extension can do with COS, one requirement of
+[crbug.com/547675864](https://crbug.com/547675864) per section:
+
+| Requirement                          | How the manager shows it                                                                                                                                 |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| List every entry, paged              | `chrome.crossOriginStorage.getEntries()`, with each entry's hash, size, type, storing origins, sharing, readers, and last read, refreshed by `onChanged` |
+| Delete an entry                      | `chrome.crossOriginStorage.removeEntry()`                                                                                                                |
+| A permission governing both          | The `crossOriginStorage` permission, whose install prompt reads "Read and delete files that sites share with each other"                                 |
+| Block an entry by its hash           | A **Block** button per entry, which adds a dynamic `crossOriginStorageHashes` rule, next to the static URL and hash rulesets                             |
+| Clear COS with site data             | `chrome.browsingData.remove()` with `crossOriginStorage`, for one site or all                                                                            |
+| List every entry, paged, through CDP | `Storage.getCrossOriginStorageEntries` through `chrome.debugger`, attached to any open web page                                                          |
+| See COS hits                         | The log: rule matches on COS lookups, and hits that reach `webRequest` as requests answered from a cache                                                 |
+
 ## Chromium changes
 
 - [8605006](https://chromium-review.googlesource.com/c/chromium/src/+/8605006):
   the `chrome.crossOriginStorage` extension API
 - [8605007](https://chromium-review.googlesource.com/c/chromium/src/+/8605007):
   `declarativeNetRequest` and `crossOriginStorageHashes`
+- [8605008](https://chromium-review.googlesource.com/c/chromium/src/+/8605008):
+  clearing COS with site data, and `chrome.browsingData`
 - [8606266](https://chromium-review.googlesource.com/c/chromium/src/+/8606266):
   COS hits shown to `webRequest`
 

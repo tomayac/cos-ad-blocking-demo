@@ -1,0 +1,140 @@
+<!doctype html>
+<!-- SPDX-FileCopyrightText: 2026 Google LLC -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cross-Origin Storage manager</title>
+    <link rel="stylesheet" href="manager.css" />
+    <script type="module" src="manager.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Cross-Origin Storage manager</h1>
+      <p class="note">
+        Everything an extension can do with Cross-Origin Storage, with the
+        <code>crossOriginStorage</code>, <code>declarativeNetRequest</code>,
+        <code>webRequest</code>, <code>browsingData</code>, and
+        <code>debugger</code> permissions.
+      </p>
+    </header>
+
+    <section id="entries-section">
+      <h2>Entries</h2>
+      <p class="note">
+        <code>chrome.crossOriginStorage.getEntries()</code>, one page at a time,
+        refreshed by <code>onChanged</code>. Delete an entry with
+        <code>removeEntry()</code>, or block it with a
+        <code>crossOriginStorageHashes</code> rule.
+      </p>
+      <div class="toolbar">
+        <label
+          >Page size
+          <select id="page-size">
+            <option>5</option>
+            <option selected>25</option>
+            <option>100</option>
+          </select></label
+        >
+        <span id="summary" role="status"></span>
+        <button type="button" id="first-page">First page</button>
+        <button type="button" id="next-page" disabled>Next page</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Hash</th>
+              <th>Size</th>
+              <th>Type</th>
+              <th>Stored by</th>
+              <th>Shared with</th>
+              <th>Read by</th>
+              <th>Last read</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="entries"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Blocking</h2>
+      <p class="note">
+        declarativeNetRequest rules. URL rules also apply to a Cross-Origin
+        Storage hit, which reaches them as the request it serves. Hash rules
+        apply to lookups in Cross-Origin Storage only, including
+        <code>getFileHandle()</code>.
+      </p>
+      <h3>Static rulesets</h3>
+      <label
+        ><input type="checkbox" data-ruleset="block_by_url" /> Prebid.js by
+        URL</label
+      >
+      <label
+        ><input type="checkbox" data-ruleset="block_by_hash" /> Prebid.js by
+        hash</label
+      >
+      <h3>Hashes blocked from the entries list</h3>
+      <ul id="dynamic-rules"></ul>
+      <form id="add-rule" class="toolbar">
+        <label
+          >Block a hash
+          <input
+            name="hash"
+            placeholder="sha256-…, sha384-…, or sha512-…"
+            size="48"
+            required
+        /></label>
+        <button>Add rule</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Clearing site data</h2>
+      <p class="note">
+        <code>chrome.browsingData.remove()</code> with
+        <code>crossOriginStorage</code> removes a site from the entries it
+        stored and deletes the entries no other site stores.
+      </p>
+      <form id="clear-site" class="toolbar">
+        <label
+          >Site
+          <input
+            name="origin"
+            type="url"
+            placeholder="https://example.com"
+            size="32"
+            required
+        /></label>
+        <button>Clear this site</button>
+        <button type="button" id="clear-all">Clear all sites</button>
+      </form>
+      <p id="clear-result" role="status"></p>
+    </section>
+
+    <section>
+      <h2>DevTools protocol</h2>
+      <p class="note">
+        <code>Storage.getCrossOriginStorageEntries</code> lists every entry for
+        automation. <code>chrome.debugger</code> reaches it through any open web
+        page, and Chrome shows that it is debugging while it runs.
+      </p>
+      <button type="button" id="cdp-list">List through the protocol</button>
+      <p id="cdp-result" role="status"></p>
+    </section>
+
+    <section>
+      <h2>Log</h2>
+      <p class="note">
+        Rule matches, including those on Cross-Origin Storage lookups, and
+        script requests answered from a cache, which is how a hit appears to
+        <code>webRequest</code>.
+      </p>
+      <button type="button" id="clear-log">Clear the log</button>
+      <ol id="log"></ol>
+    </section>
+  </body>
+</html>
