@@ -63,10 +63,10 @@
     <section>
       <h2>Blocking</h2>
       <p class="note">
-        declarativeNetRequest rules. URL rules also apply to a Cross-Origin
-        Storage hit, which reaches them as the request it serves. Hash rules
-        apply to lookups in Cross-Origin Storage only, including
-        <code>getFileHandle()</code>.
+        declarativeNetRequest rules. Hash rules apply to lookups in Cross-Origin
+        Storage, including <code>getFileHandle()</code>, and keep a file from
+        being served from there. URL rules apply to requests, which a hit does
+        not make.
       </p>
       <h3>Static rulesets</h3>
       <label
@@ -130,8 +130,7 @@
       <h2>Log</h2>
       <p class="note">
         Rule matches, including those on Cross-Origin Storage lookups, and
-        script requests answered from a cache, which is how a hit appears to
-        <code>webRequest</code>.
+        script requests that failed.
       </p>
       <button type="button" id="clear-log">Clear the log</button>
       <ol id="log"></ol>

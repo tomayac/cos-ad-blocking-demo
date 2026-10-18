@@ -55,10 +55,6 @@ fieldset {
   color: #067647;
 }
 
-.kind.cache {
-  color: #b54708;
-}
-
 .kind.error {
   opacity: 0.75;
 }
@@ -66,9 +62,6 @@ fieldset {
 @media (prefers-color-scheme: dark) {
   .kind.blocked {
     color: #6ee7a6;
-  }
-  .kind.cache {
-    color: #fdb022;
   }
 }
 

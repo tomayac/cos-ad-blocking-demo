@@ -17,7 +17,6 @@ export async function showLog(list) {
         kind.className = `kind ${entry.kind}`;
         kind.textContent = {
           blocked: `Matched the ${RULESET_NAMES[entry.ruleset] ?? entry.ruleset}`,
-          cache: "Served from cache or Cross-Origin Storage",
           error: `Failed: ${entry.error}`,
         }[entry.kind];
         item.append(

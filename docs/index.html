@@ -47,8 +47,9 @@
           <h2>Load it again: a Cross-Origin Storage hit</h2>
           <p>
             The same tag again. The bytes now come from Cross-Origin Storage,
-            with no network request. The extension's URL rule still applies,
-            because the hit reaches it as the request it serves.
+            with no network request, so no URL rule sees one. The hash rule
+            keeps the file from being served from there, and the URL rule then
+            blocks the network request that follows.
           </p>
           <button type="button" data-step="hit">
             Load from jsDelivr again

@@ -33,17 +33,6 @@ chrome.declarativeNetRequest.onRuleMatchedDebug?.addListener(
   },
 );
 
-// Script requests answered without the network: a hit in Cross-Origin
-// Storage reaches webRequest as a request answered from a cache.
-chrome.webRequest.onCompleted.addListener(
-  (details) => {
-    if (details.fromCache) {
-      log({ kind: "cache", url: details.url, type: details.type });
-    }
-  },
-  { urls: ["<all_urls>"], types: ["script"] },
-);
-
 // Script requests that failed, such as one a rule blocked on the network.
 chrome.webRequest.onErrorOccurred.addListener(
   (details) => {
